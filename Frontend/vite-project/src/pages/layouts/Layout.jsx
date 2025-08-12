@@ -17,7 +17,7 @@ const Layout = () => {
       {/* <Header /> */}
       <div
         className={` h-auto ${
-          isSidebarOpen ? "w-[calc(100%-192px)]" : "w-[calc(100%-80px)]"
+          isSidebarOpen ? "sm:w-[calc(100%-192px)] w-full" : "sm:w-[calc(100%-80px)] w-full"
         } `}
       >
         <Outlet />

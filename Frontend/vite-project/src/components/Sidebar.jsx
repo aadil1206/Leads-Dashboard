@@ -1,6 +1,8 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { RiArrowDropLeftLine } from "react-icons/ri";
 import { RiArrowDropRightLine } from "react-icons/ri";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -81,7 +83,10 @@ const Sidebar = () => {
         <div>
 
               <div className="flex items-center justify-between p-4 border-b">
-            <p>LeadCRM</p>
+           
+
+<Users size={24} color="#2563eb" />
+
             <button
               onClick={() => setIsSidebarOpen(!isSidebarOpen)}
               className="text-gray-500 hover:text-gray-700 transition"
@@ -95,25 +100,28 @@ const Sidebar = () => {
           </div>
 
               <div className="flex items-center justify-between p-4 border-b">
-            <nav className="space-y-2">
-              {menuItems.map((item) => {
-                const isActive = location.pathname === item.path;
-                return (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md transition 
-                ${
-                  isActive
-                    ? "bg-gray-100 text-black font-medium"
-                    : "text-gray-700 hover:bg-gray-50"
-                }`}
-                  >
-                    {item.icon}
-                  </Link>
-                );
-              })}
-            </nav>
+         <nav className="space-y-2">
+  {menuItems.map((item) => {
+    const isActive = location.pathname === item.path;
+    return (
+      <Link
+        key={item.name}
+        to={item.path}
+        data-tooltip-id={`tooltip-${item.name}`}
+        data-tooltip-content={item.name}
+        className={`flex items-center gap-3 px-3 py-2 rounded-md transition 
+          ${
+            isActive
+              ? "bg-gray-100 text-black font-medium"
+              : "text-gray-700 hover:bg-gray-50"
+          }`}
+      >
+        {item.icon}
+        <Tooltip id={`tooltip-${item.name}`} place="right" />
+      </Link>
+    );
+  })}
+</nav>
           </div>
         </div>
       )}

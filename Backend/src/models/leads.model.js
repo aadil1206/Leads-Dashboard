@@ -12,7 +12,7 @@ const leadsSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    altphone: {
+    altPhone: {
       type: String,
       default: "",
       trim: true,
@@ -22,7 +22,7 @@ const leadsSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
-    altemail: {
+    altEmail: {
       type: String,
       default: "",
       trim: true,
@@ -31,7 +31,7 @@ const leadsSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    qualifications: {
+    qualification: {
       type: String,
       default: "",
     },
@@ -59,7 +59,7 @@ const leadsSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    passoutyear: {
+    passoutYear: {
       type: String,
       default: "",
     },

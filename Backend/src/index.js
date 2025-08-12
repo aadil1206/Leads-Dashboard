@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+dotenv.config(); // Load env variables early
+
 import leadsroute from "./routes/routes.js";
 import { connectDB } from "./lib/db.js";
 
@@ -7,7 +9,6 @@ import cors from "cors";
 
 
 
-dotenv.config(); // Load env variables early
 
 const app = express();
 

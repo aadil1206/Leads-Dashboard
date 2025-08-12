@@ -1,22 +1,16 @@
 import Leads from "../models/leads.model.js";
 
-
 export const addLead = async (req, res) => {
   try {
-    console.log("Incoming lead:", req.body);
-
-     const leadData = req.body.data || req.body;
-    console.log("Final Lead Data:", leadData);
+    const leadData = req.body.data || req.body;
 
     const newLead = new Leads(leadData);
     await newLead.save();
     res.status(201).json({ message: "Lead added successfully" });
   } catch (err) {
-     console.error("Error saving lead:", err);
     res.status(500).json({ error: err.message });
   }
 };
-
 
 // Get all leads
 export const getAllLeads = async (req, res) => {

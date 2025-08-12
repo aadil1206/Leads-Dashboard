@@ -4,7 +4,7 @@ const leadsSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true, // Frontend se already validate hoga
+      required: true,
       trim: true,
     },
     phone: {

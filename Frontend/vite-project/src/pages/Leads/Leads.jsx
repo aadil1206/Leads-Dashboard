@@ -38,40 +38,7 @@ const Leads = () => {
   // State For Search input value
   const [searchValue, setSearchValue] = useState("");
 
-  // Options for Status field
-  const statusOptions = [
-    { value: "new", label: "New" },
-    { value: "follow-up", label: "Follow-Up" },
-    { value: "qualified", label: "Qualified" },
-    { value: "converted", label: "Converted" },
-  ];
-
-  // Options for the Qualification field
-  const qualificationOptions = [
-    { value: "high-school", label: "High School" },
-    { value: "masters", label: "Masters" },
-    { value: "phd", label: "PhD" },
-  ];
-
-  // Options for the interest field
-  const interestFieldOptions = [
-    { value: "web-dev", label: "Web Development" },
-    { value: "mobile-dev", label: "Mobile Development" },
-    { value: "data-science", label: "Data Science" },
-  ];
-
-  // Options for the source field
-  const sourceOptions = [
-    { value: "website", label: "Website" },
-    { value: "social-media", label: "Social Media" },
-    { value: "email-campaign", label: "Email Campaign" },
-  ];
-
-  // Options for the assigned to field
-  const assignedToOptions = [
-    { value: "john-doe", label: "John Doe" },
-    { value: "jane-smith", label: "Jane Smith" },
-  ];
+ 
 
   // Common styles for Select components
   const commonSelectStyles = {
@@ -90,24 +57,7 @@ const Leads = () => {
     }),
   };
 
-  //  Initial values for the form fields
-  const initialValues = {
-    name: "",
-    phone: "",
-    altPhone: "",
-    email: "",
-    altEmail: "",
-    status: null,
-    qualification: null,
-    interestField: null,
-    source: null,
-    assignedTo: null,
-    jobInterest: "",
-    state: "",
-    city: "",
-    passoutYear: "",
-    heardFrom: "",
-  };
+ 
 
  
 

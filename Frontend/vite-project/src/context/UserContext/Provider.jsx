@@ -5,6 +5,7 @@ const ChartProvider = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+
   return (
     <UserContext.Provider
       value={{

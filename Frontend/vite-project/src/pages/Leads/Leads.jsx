@@ -2,8 +2,7 @@ import React, { use, useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import Select from "react-select";
 import { addLead, getLeads } from "../../Api";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+
 import LeadsTable from "../../components/LeadsTable";
 import UserContext from "../../context/UserContext/Context";
 import { GiHamburgerMenu } from "react-icons/gi";
@@ -13,7 +12,6 @@ import ApplyFilters from "../../components/ApplyFilters";
 
 const Leads = () => {
   // State to manage the Add Lead modal visibility
-  const [isAddLeadModalOpen, setIsAddLeadModalOpen] = React.useState(false);
 
   // Context to manage sidebar and mobile menu states
   const {
@@ -21,6 +19,8 @@ const Leads = () => {
     setIsSidebarOpen,
     isMobileMenuOpen,
     setIsMobileMenuOpen,
+    isAddLeadModalOpen,
+    setIsAddLeadModalOpen,
   } = useContext(UserContext);
 
   // State to manage leads data and filter options
@@ -111,40 +111,9 @@ const Leads = () => {
 
  
 
-  // Function to handle form submission and add a new lead
-  const handleSubmit = async (values) => {
-    const payload = {
-      ...values,
-      status: values.status?.value,
-      qualification: values.qualification?.value,
-      interestField: values.interestField?.value,
-      source: values.source?.value,
-      assignedTo: values.assignedTo?.value,
-    };
 
-    try {
-      await addLead({ data: payload });
-      setIsAddLeadModalOpen(false);
-    } catch (error) {
-      console.error("Error adding lead:", error);
-    }
-    fetchLeads();
-  };
 
-  // Function to fetch leads with search and status filters
-  const fetchLeads = async ({ search = "", status = "" } = {}) => {
-    try {
-      const response = await getLeads({ search, status });
-      setGetLeadsData(response.data);
-      if (response && response.data) {
-        console.log("Fetched Leads:", response.data);
-      } else {
-        console.warn("No leads data found");
-      }
-    } catch (error) {
-      console.error("Error fetching leads:", error);
-    }
-  };
+  
 
   // Fetch leads on component mount
   useEffect(() => {
@@ -159,25 +128,7 @@ const Leads = () => {
     setFieldStatus(selected ? selected.map((option) => option.value) : []);
   };
 
-  //Function For Add Filter Status
-  const addFilterStatus = () => {
-    setFieldStatus([]);
-    setStatusShow([...fieldStatus]);
-  };
-
-  //Function For Clear Filters Status
-  const clearFiltersStatus = () => {
-    setStatusShow([]);
-    setFieldStatus([]);
-    setFilterOn(false);
-    fetchLeads({ search: searchValue, status: "" });
-  };
-
-  //Function For Apply Filters Status
-  const applyFiltersStatus = () => {
-    fetchLeads({ search: searchValue, status: statusShow });
-    setFilterOn(false);
-  };
+ 
 
   //Function For Handle Search Change
   const handleSearchChange = (e) => {
@@ -212,9 +163,9 @@ const Leads = () => {
         </button>
 
         {isAddLeadModalOpen && (
-         <AddLeadsModal />
+         <AddLeadsModal isAddLeadModalOpen={isAddLeadModalOpen} setIsAddLeadModalOpen={setIsAddLeadModalOpen}/>
         )}
-      </div>
+           </div>
       <div className="p-4 w-full flex flex-col gap-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <input

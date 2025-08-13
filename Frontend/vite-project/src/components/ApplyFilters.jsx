@@ -1,6 +1,28 @@
 import React from 'react'
+import Select from "react-select";
+import { useState } from "react";
 
 const ApplyFilters = () => {
+
+   //Function For Add Filter Status
+    const addFilterStatus = () => {
+      setFieldStatus([]);
+      setStatusShow([...fieldStatus]);
+    };
+  
+    //Function For Clear Filters Status
+    const clearFiltersStatus = () => {
+      setStatusShow([]);
+      setFieldStatus([]);
+      setFilterOn(false);
+      fetchLeads({ search: searchValue, status: "" });
+    };
+  
+    //Function For Apply Filters Status
+    const applyFiltersStatus = () => {
+      fetchLeads({ search: searchValue, status: statusShow });
+      setFilterOn(false);
+    };
   return (
      <div className="p-4 border rounded-lg border-[#64748b] shadow-sm">
             <h2 className="font-bold text-lg mb-4">Advanced Filters</h2>

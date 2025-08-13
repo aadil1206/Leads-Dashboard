@@ -1,7 +1,34 @@
 import React from 'react'
-import validationSchema from '../Schema/leadValidationSchema'
+import validationSchema from '../Schema/leadValidationSchema';
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import Select from "react-select";
+import { addLead, getLeads } from "../../Api";
+import { fetchLeads } from '../services/leadsService';
 
-const AddLeadsModal = () => {
+
+const AddLeadsModal = ({setIsAddLeadModalOpen,isAddLeadModalOpen}) => {
+
+    // Function to handle form submission and add a new lead
+    const handleSubmit = async (values) => {
+      const payload = {
+        ...values,
+        status: values.status?.value,
+        qualification: values.qualification?.value,
+        interestField: values.interestField?.value,
+        source: values.source?.value,
+        assignedTo: values.assignedTo?.value,
+      };
+  
+      try {
+        await addLead({ data: payload });
+        setIsAddLeadModalOpen(false);
+      } catch (error) {
+        console.error("Error adding lead:", error);
+      }
+      fetchLeads();
+    };
+
+
   return (
      <div className="fixed inset-0 bg-[#000000]/80 bg- flex items-center justify-center z-50">
             <div className="bg-white rounded-xl w-full max-w-lg p-6 shadow-lg h-[80vh] overflow-y-auto">

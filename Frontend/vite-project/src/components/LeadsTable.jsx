@@ -48,13 +48,14 @@ const LeadsTable = ({ data: apiData }) => {
     columnHelper.accessor("name", {
       header: "Name",
       cell: (info) => {
-        const value = info.getValue();
-        return <span className="text-[#0080ff] font-medium">{value}</span>;
+        const value = info.getValue() || "-";
+        return <span className={` ${value === "-"? "" :"text-[#0080ff]"} font-medium`}>{value}</span>;
       },
     }),
 
     columnHelper.accessor("phone", {
       header: "Contact",
+       cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("status", {
       header: "Status",

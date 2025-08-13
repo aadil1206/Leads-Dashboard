@@ -12,10 +12,26 @@ export const addLead = async (req, res) => {
   }
 };
 
-// Get all leads
+
 export const getAllLeads = async (req, res) => {
   try {
-    const leads = await Leads.find();
+    let { search = "", status = "" } = req.query || "";
+    
+    let searchCriteria = {};
+    if (search) {
+      searchCriteria.name = {
+        $regex: search,
+        $options: "i", 
+      };
+    }
+
+    if (status) {
+      searchCriteria.status = {
+        $in: status.split(",").map((s) => new RegExp(`^${s}$`, "i")),
+      };
+    }
+
+    const leads = await Leads.find(searchCriteria);
     res.status(200).json(leads);
   } catch (err) {
     res.status(500).json({ error: err.message });

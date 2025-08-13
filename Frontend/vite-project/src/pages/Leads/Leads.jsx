@@ -1,4 +1,4 @@
-import React, { use, useContext, useEffect } from "react";
+import React, { use, useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import Select from "react-select";
 import { addLead, getLeads } from "../../Api";
@@ -18,6 +18,11 @@ const Leads = () => {
     setIsMobileMenuOpen,
   } = useContext(UserContext);
   const [getLeadsData, setGetLeadsData] = React.useState([]);
+  const [fieldStatus, setFieldStatus] = useState([""]); 
+  const [filterOn, setFilterOn] = React.useState(false);
+  const [matchType, setMatchType] = useState("AND");
+
+  const [searchValue, setSearchValue] = useState("");
   const statusOptions = [
     { value: "new", label: "New" },
     { value: "follow-up", label: "Follow-Up" },
@@ -140,7 +145,6 @@ const Leads = () => {
   const handleSubmit = async (values) => {
     console.log("Form Values:", values);
 
-    // Transform select objects to just values
     const payload = {
       ...values,
       status: values.status?.value,
@@ -159,9 +163,10 @@ const Leads = () => {
     }
     fetchLeads();
   };
-  const fetchLeads = async () => {
+  const fetchLeads = async ({ search = "", status = "" } = {}) => {
+    console.log(search, "searchdd", status, "status");
     try {
-      const response = await getLeads();
+      const response = await getLeads({ search, status });
       setGetLeadsData(response.data);
       if (response && response.data) {
         console.log("Fetched Leads:", response.data);
@@ -175,6 +180,44 @@ const Leads = () => {
   useEffect(() => {
     fetchLeads();
   }, []);
+
+  const [statusShow, setStatusShow] = useState([]);
+  const [value, setValue] = useState(null); 
+
+  const valueOptions = [
+    { value: "Active", label: "Active" },
+    { value: "Inactive", label: "Inactive" },
+    { value: "Pending", label: "Pending" },
+  ];
+
+  const handleStatusChange = (selected) => {
+  
+    setFieldStatus(selected ? selected.map((option) => option.value) : []);
+  };
+
+  const addFilterStatus = () => {
+    console.log("object")
+   setFieldStatus([])
+    setStatusShow([...fieldStatus]);
+  };
+
+  const clearFiltersStatus = () => {
+    setStatusShow([]);
+    setFieldStatus([]);
+    setFilterOn(false);
+    fetchLeads({ search: searchValue, status: "" });
+  };
+  const applyFiltersStatus = () => {
+    console.log("Status Show:");
+    fetchLeads({ search: searchValue, status: statusShow }); 
+    setFilterOn(false); 
+  };
+
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchValue(value);
+    fetchLeads({ search: value, status: statusShow });
+  };
 
   return (
     <div className="w-full h-full bg-gray-100 rounded-lg shadow-md overflow-y-auto">
@@ -496,16 +539,117 @@ const Leads = () => {
             type="text"
             placeholder="Search leads..."
             className="w-full sm:w-auto flex-1 px-3 py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
+            onChange={handleSearchChange}
           />
 
-          <button className="flex items-center gap-2 px-4 py-2 border border-[#64768b]  rounded-lg text-sm  hover:bg-gray-50">
+          <button
+            onClick={() => setFilterOn(!filterOn)}
+            className="flex items-center gap-2 px-4 py-2 border border-[#64768b]  rounded-lg text-sm  hover:bg-gray-50"
+          >
             <LiaFilterSolid />
             <span className="text-[14px] font-medium text-[#020817]">
               Filters
             </span>
           </button>
         </div>
+        {filterOn && (
+          <div className="p-4 border rounded-lg border-[#64748b] shadow-sm">
+            <h2 className="font-bold text-lg mb-4">Advanced Filters</h2>
+            <div className="flex flex-col gap-2 border-b border-[64748b] pb-4 mb-4">
+              <div className="mb-4 flex items-center gap-4">
+                <span>Match</span>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="matchType"
+                    value="AND"
+                    checked={matchType === "AND"}
+                    onChange={() => setMatchType("AND")}
+                  />
+                  ALL conditions (AND)
+                </label>
+                <label className="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="matchType"
+                    value="OR"
+                    checked={matchType === "OR"}
+                    onChange={() => setMatchType("OR")}
+                  />
+                  ANY condition (OR)
+                </label>
+              </div>
 
+              <div className="flex  gap-3 w-full flex-col">
+                <div className="w-full flex gap-2 flex-col sm:flex-row">
+                  <Select
+                    value={statusOptions.filter((opt) =>
+                      fieldStatus.includes(opt.value)
+                    )}
+                    onChange={handleStatusChange}
+                    options={statusOptions}
+                    placeholder="Select field"
+                    className="lg:w-[20%] sm:w-[50%] w-full"
+                    isMulti
+                  />
+
+                  <Select
+                    value={value}
+                    onChange={(selected) => setValue(selected)}
+                    options={valueOptions}
+                    placeholder="Select value"
+                    isDisabled={true}
+                    className="lg:w-[80%] sm:w-[50%] w-full"
+                  />
+                </div>
+                <div className="flex flex-wrap gap-2 mt-3 ">
+                  {Array.isArray(statusShow) &&
+                    statusShow.length > 0 &&
+                    statusShow.map((status, index) => (
+                      <div
+                        key={index}
+                        className="px-3 py-1 bg-[#020817] text-[#fff] rounded-full text-sm flex items-center gap-1"
+                      >
+                        {status}
+                        <button
+                          onClick={() =>
+                            setStatusShow(
+                              statusShow.filter((s) => s !== status)
+                            )
+                          }
+                          className="text-white "
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+              <button
+                onClick={addFilterStatus}
+                className="border border-[#64748b] px-4 py-1 rounded-[5px] hover:bg-gray-100 bg-white text-[#020817] w-fit"
+              >
+                Add Filter
+              </button>
+            </div>
+
+            <div className="flex gap-4 justify-end">
+              <button
+                onClick={clearFiltersStatus}
+                className="border border-[#64748b] px-4 py-2 rounded-[5px] hover:bg-gray-100 bg-white text-[#020817]"
+              >
+                Clear
+              </button>
+              <button
+                onClick={applyFiltersStatus}
+                className="bg-[#020817] text-white px-4 py-2  rounded-[5px]"
+              >
+                Apply Filters
+              </button>
+            </div>
+          </div>
+        )}
         <LeadsTable data={getLeadsData} />
       </div>
     </div>

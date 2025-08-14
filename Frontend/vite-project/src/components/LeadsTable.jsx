@@ -49,13 +49,19 @@ const LeadsTable = ({ data: apiData }) => {
       header: "Name",
       cell: (info) => {
         const value = info.getValue() || "-";
-        return <span className={` ${value === "-"? "" :"text-[#0080ff]"} font-medium`}>{value}</span>;
+        return (
+          <span
+            className={` ${value === "-" ? "" : "text-[#0080ff]"} font-medium`}
+          >
+            {value}
+          </span>
+        );
       },
     }),
 
     columnHelper.accessor("phone", {
       header: "Contact",
-       cell: (info) => info.getValue() || "-",
+      cell: (info) => info.getValue() || "-",
     }),
     columnHelper.accessor("status", {
       header: "Status",
@@ -150,4 +156,4 @@ const LeadsTable = ({ data: apiData }) => {
   );
 };
 
-export default LeadsTable;
+export default React.memo(LeadsTable);

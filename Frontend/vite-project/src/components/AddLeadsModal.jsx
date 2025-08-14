@@ -2,9 +2,11 @@ import React from "react";
 import validationSchema from "../Schema/leadValidationSchema";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Select from "react-select";
-import { addLead, getLeads } from "../../Api";
+import { addLead, getLeads } from "../Api";
 import { fetchLeads } from "../services/leadsService";
 import { initialValues } from "../constants/formInitialValues";
+import FormField from "./FormField";
+import { FormActions } from "./FormActions";
 import {
   statusOptions,
   qualificationOptions,
@@ -13,7 +15,10 @@ import {
   assignedToOptions,
 } from "../constants/formOptions";
 
-const AddLeadsModal = ({ setIsAddLeadModalOpen, isAddLeadModalOpen }) => {
+const AddLeadsModal = ({ setIsAddLeadModalOpen, isAddLeadModalOpen ,setGetLeadsData}) => {
+
+  // State to manage form submission status
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
   // Function to handle form submission and add a new lead
   const handleSubmit = async (values) => {
     const payload = {
@@ -31,7 +36,8 @@ const AddLeadsModal = ({ setIsAddLeadModalOpen, isAddLeadModalOpen }) => {
     } catch (error) {
       console.error("Error adding lead:", error);
     }
-    fetchLeads();
+   const data = await fetchLeads();
+    setGetLeadsData(data);
   };
 
   return (

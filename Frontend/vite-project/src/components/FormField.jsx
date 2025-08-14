@@ -1,21 +1,19 @@
-import React from 'react'
-import { Field, ErrorMessage } from 'formik';
-import Select from 'react-select';
+import React from "react";
+import { Field, ErrorMessage } from "formik";
+import Select from "react-select";
 
 const FormField = ({
   name,
   label,
-  type = 'text',
-  as = 'input',
+  type = "text",
+  as = "input",
   options,
-  className = '',
+  className = "",
   ...props
 }) => (
   <div className={`sm:col-span-1 col-span-2 ${className}`}>
-    <label className="block text-sm text-[#020817]">
-      {label}
-    </label>
-    {as === 'select' ? (
+    <label className="block text-sm text-[#020817]">{label}</label>
+    {as === "select" ? (
       <Select
         options={options}
         menuPlacement="top"
@@ -39,4 +37,4 @@ const FormField = ({
   </div>
 );
 
-export default FormField
+export default FormField;

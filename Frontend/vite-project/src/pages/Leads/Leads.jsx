@@ -2,13 +2,15 @@ import React, { use, useContext, useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa6";
 import Select from "react-select";
 import { addLead, getLeads } from "../../Api";
-
+import { fetchLeads } from "../../services/leadsService";
 import LeadsTable from "../../components/LeadsTable";
 import UserContext from "../../context/UserContext/Context";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { LiaFilterSolid } from "react-icons/lia";
 import AddLeadsModal from "../../components/AddLeadsModal";
 import ApplyFilters from "../../components/ApplyFilters";
+import { debounce } from "lodash";
+import { useCallback } from "react";
 
 const Leads = () => {
   // State to manage the Add Lead modal visibility
@@ -19,73 +21,46 @@ const Leads = () => {
     setIsSidebarOpen,
     isMobileMenuOpen,
     setIsMobileMenuOpen,
-    isAddLeadModalOpen,
-    setIsAddLeadModalOpen,
   } = useContext(UserContext);
 
   // State to manage leads data and filter options
   const [getLeadsData, setGetLeadsData] = React.useState([]);
 
-  // State for selected Status in the filter
-  const [fieldStatus, setFieldStatus] = useState([]);
+  const [isAddLeadModalOpen, setIsAddLeadModalOpen] = useState(false);
 
   // State For Applying Filters
   const [filterOn, setFilterOn] = React.useState(false);
 
-  // State For Selected checkbox in filter
-  const [matchType, setMatchType] = useState("AND");
-
   // State For Search input value
   const [searchValue, setSearchValue] = useState("");
 
- 
-
-  // Common styles for Select components
-  const commonSelectStyles = {
-    control: (base) => ({
-      ...base,
-      borderRadius: "0.375rem",
-      borderColor: "#d1d5db",
-      padding: "2px",
-      boxShadow: "none",
-      "&:hover": { borderColor: "#3b82f6" },
-    }),
-    menu: (base) => ({
-      ...base,
-      marginTop: 0,
-      marginBottom: "4px",
-    }),
-  };
-
- 
-
- 
-
-
-
-  
-
   // Fetch leads on component mount
   useEffect(() => {
-    fetchLeads();
+    const loadLeads = async () => {
+      const data = await fetchLeads();
+      setGetLeadsData(data);
+    };
+    loadLeads();
+    console.log("useEffect called");
   }, []);
 
-  // State for Show selected Status in the ui
-  const [statusShow, setStatusShow] = useState([]);
-
-  //Function For Handle Status Change
-  const handleStatusChange = (selected) => {
-    setFieldStatus(selected ? selected.map((option) => option.value) : []);
-  };
-
- 
+  const debouncedSearch = useCallback(
+    debounce(async (value) => {
+      const data = await fetchLeads({ search: value, status: [] });
+      setGetLeadsData(data);
+    }, 500),
+    []
+  );
 
   //Function For Handle Search Change
-  const handleSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchValue(value);
-    fetchLeads({ search: value, status: statusShow });
-  };
+  const handleSearchChange = useCallback(
+    (e) => {
+      const value = e.target.value;
+      setSearchValue(value);
+      debouncedSearch(value);
+    },
+    [debouncedSearch]
+  );
 
   return (
     <div className="w-full h-full bg-gray-100 rounded-lg shadow-md overflow-y-auto">
@@ -113,9 +88,13 @@ const Leads = () => {
         </button>
 
         {isAddLeadModalOpen && (
-         <AddLeadsModal isAddLeadModalOpen={isAddLeadModalOpen} setIsAddLeadModalOpen={setIsAddLeadModalOpen}/>
+          <AddLeadsModal
+            isAddLeadModalOpen={isAddLeadModalOpen}
+            setIsAddLeadModalOpen={setIsAddLeadModalOpen}
+            setGetLeadsData={setGetLeadsData}
+          />
         )}
-           </div>
+      </div>
       <div className="p-4 w-full flex flex-col gap-3">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <input
@@ -136,7 +115,12 @@ const Leads = () => {
           </button>
         </div>
         {filterOn && (
-        <ApplyFilters />
+          <ApplyFilters
+            searchValue={searchValue}
+            filterOn={filterOn}
+            setFilterOn={setFilterOn}
+            setGetLeadsData={setGetLeadsData}
+          />
         )}
         <LeadsTable data={getLeadsData} />
       </div>

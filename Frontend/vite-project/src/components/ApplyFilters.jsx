@@ -11,7 +11,6 @@ const ApplyFilters = ({
   filterOn,
   setGetLeadsData,
 }) => {
-
   // Context to manage status filters
   const { statusShow, setStatusShow } = useContext(UserContext);
 
@@ -55,28 +54,30 @@ const ApplyFilters = ({
     <div className="p-4 border rounded-lg border-[#64748b] shadow-sm">
       <h2 className="font-bold text-lg mb-4">Advanced Filters</h2>
       <div className="flex flex-col gap-2 border-b border-[64748b] pb-4 mb-4">
-        <div className="mb-4 flex items-center gap-4">
+        <div className="mb-4 flex sm:flex-row flex-col gap-4 text-[14px]">
           <span>Match</span>
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="matchType"
-              value="AND"
-              checked={matchType === "AND"}
-              onChange={() => setMatchType("AND")}
-            />
-            ALL conditions (AND)
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="matchType"
-              value="OR"
-              checked={matchType === "OR"}
-              onChange={() => setMatchType("OR")}
-            />
-            ANY condition (OR)
-          </label>
+          <div className="flex  gap-2 sm:flex-row flex-col">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="matchType"
+                value="AND"
+                checked={matchType === "AND"}
+                onChange={() => setMatchType("AND")}
+              />
+              ALL conditions (AND)
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="matchType"
+                value="OR"
+                checked={matchType === "OR"}
+                onChange={() => setMatchType("OR")}
+              />
+              ANY condition (OR)
+            </label>
+          </div>
         </div>
 
         <div className="flex  gap-3 w-full flex-col">

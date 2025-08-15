@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const HOST = "http://localhost:5000/api";
+const HOST = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 export const addLead = async (data) => {
   return await axios.post(`${HOST}/addLead`, data);

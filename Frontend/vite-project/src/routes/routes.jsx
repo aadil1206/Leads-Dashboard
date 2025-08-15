@@ -17,7 +17,7 @@ export const routes = createBrowserRouter(
   createRoutesFromElements(
     <>
       {/* Default redirect */}
-      <Route path="/" element={<Navigate to="/dashboard" />} />
+      <Route path="/" element={<Navigate to="/leads" />} />
 
 
       {/* Main layout route */}

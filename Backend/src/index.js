@@ -9,13 +9,15 @@ import cors from "cors";
 
 const app = express();
 
+const PORT = process.env.PORT;
+
 app.use(express.json());
 app.use(cors());
 
 app.use("/api", leadsroute);
 
 connectDB().then(() => {
-  app.listen(5000, () => {
-    console.log(`✅ Server running on port  ssss ${5000}`);
+  app.listen(PORT, () => {
+    console.log(`✅ Server running on port  ssss ${PORT}`);
   });
 });

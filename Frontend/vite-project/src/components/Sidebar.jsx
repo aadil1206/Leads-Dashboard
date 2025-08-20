@@ -17,7 +17,7 @@ import {
 import UserContext from "../context/UserContext/Context";
 
 const menuItems = [
-  { name: "Dashboard", path: "/", icon: <LayoutGrid size={20} /> },
+  { name: "Dashboard", path: "/dashboard", icon: <LayoutGrid size={20} /> },
   { name: "Leads", path: "/leads", icon: <Users size={20} /> },
   { name: "Follow-Ups", path: "/follow-ups", icon: <Calendar size={20} /> },
   {

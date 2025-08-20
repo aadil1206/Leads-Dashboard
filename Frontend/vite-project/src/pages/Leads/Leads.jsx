@@ -37,7 +37,7 @@ const Leads = () => {
   // Fetch leads on component mount
   useEffect(() => {
     const loadLeads = async () => {
-      const data = await fetchLeads();
+      const data = await fetchLeads({ search: "", status: [] });
       setGetLeadsData(data);
     };
     loadLeads();

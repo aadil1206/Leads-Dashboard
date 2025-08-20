@@ -101,11 +101,11 @@ const Leads = () => {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div className="w-full sm:w-auto flex-1 relative">
 
-          <IoSearchOutline className="flex absolute text-[14px] text-[#64768b] "/>
+          <IoSearchOutline className="flex absolute text-[15px] text-[#64768b] ml-[10px] "/>
           <input
             type="text"
             placeholder="Search leads..."
-            className="w-full px-3 py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
+            className="w-full pr-3 pl-[30px] py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
             onChange={handleSearchChange}
           />
           

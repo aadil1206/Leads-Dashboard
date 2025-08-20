@@ -11,6 +11,8 @@ import AddLeadsModal from "../../components/AddLeadsModal";
 import ApplyFilters from "../../components/ApplyFilters";
 import { debounce } from "lodash";
 import { useCallback } from "react";
+import { IoSearchOutline } from "react-icons/io5";
+
 
 const Leads = () => {
   // State to manage the Add Lead modal visibility
@@ -97,13 +99,17 @@ const Leads = () => {
       </div>
       <div className="p-4 w-full flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="w-full sm:w-auto flex-1 relative">
+
+          <IoSearchOutline className="flex absolute text-[14px] text-[#64768b] "/>
           <input
             type="text"
             placeholder="Search leads..."
-            className="w-full sm:w-auto flex-1 px-3 py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
+            className="w-full px-3 py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
             onChange={handleSearchChange}
           />
-
+          
+</div>
           <button
             onClick={() => setFilterOn(!filterOn)}
             className="flex items-center gap-2 px-4 py-2 border border-[#64768b]  rounded-lg text-sm  hover:bg-gray-50"

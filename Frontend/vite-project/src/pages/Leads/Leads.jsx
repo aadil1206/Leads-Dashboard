@@ -74,14 +74,14 @@ const Leads = () => {
           />
           <div className="flex flex-col">
             <p className="text-[#020817] font-bold text-[21px]">Leads</p>
-            <span className="text-[#64748b] font-normal text-[14px]">
+            <span className="text-[#64748b] font-normal text-[14px] mt-[4px]">
               Manage And Track Your Leads
             </span>
           </div>
         </div>
         <button
           onClick={() => setIsAddLeadModalOpen(true)}
-          className="flex gap-2 items-center bg-[#0080ff] text-white sm:px-4 px-2 py-2 rounded-md hover:bg-blue-600 transition-colors"
+          className="flex gap-2 items-center bg-[#0080ff] text-white sm:px-4 px-4  h-[40px] rounded-[6px] hover:bg-blue-600 transition-colors"
         >
           <FaPlus />
           <span className="font-[500] text-[12px] text-[#fff]">Add Lead</span>

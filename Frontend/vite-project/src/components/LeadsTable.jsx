@@ -123,7 +123,7 @@ const LeadsTable = ({ data: apiData }) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="p-x-3 py-[10px] text-left  text-[#64748b] text-[14px] font-normal whitespace-nowrap"
+                  className="px-3 py-[10px] text-left  text-[#64748b] text-[14px] font-normal whitespace-nowrap"
                 >
                   <div className="inline-flex items-center gap-1">
                     {flexRender(

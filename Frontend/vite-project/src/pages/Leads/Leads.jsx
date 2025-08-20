@@ -84,7 +84,7 @@ const Leads = () => {
           className="flex gap-2 items-center bg-[#0080ff] text-white sm:px-4 px-4  h-[40px] rounded-[6px] hover:bg-blue-600 transition-colors"
         >
           <FaPlus />
-          <span className="font-[500] text-[12px] text-[#fff]">Add Lead</span>
+          <span className="font-[500] text-[14px] text-[#fff]">Add Lead</span>
         </button>
 
         {isAddLeadModalOpen && (

@@ -135,13 +135,13 @@ const ApplyFilters = ({
       <div className="flex gap-4 justify-end">
         <button
           onClick={clearFiltersStatus}
-          className="border border-[#64748b] px-4 py-2 rounded-[5px] hover:bg-gray-100 bg-white text-[#020817]"
+          className="border border-[#64748b] px-4 h-[40px]   rounded-[6px] hover:bg-gray-100 bg-white text-[#020817]"
         >
           Clear
         </button>
         <button
           onClick={applyFiltersStatus}
-          className="bg-[#020817] text-white px-4 py-2  rounded-[5px]"
+          className="bg-[#020817] text-white px-4 h-[40px]   rounded-[6px]"
         >
           Apply Filters
         </button>

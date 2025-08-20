@@ -31,7 +31,7 @@ export const getAllLeads = async (req, res) => {
       };
     }
 
-    const leads = await Leads.find(searchCriteria).lean();
+    const leads = await Leads.find(searchCriteria);
     res.status(200).json(leads);
   } catch (err) {
     res.status(500).json({ error: err.message });

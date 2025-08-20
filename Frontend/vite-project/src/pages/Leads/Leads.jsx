@@ -95,7 +95,7 @@ const Leads = () => {
           />
         )}
       </div>
-      <div className="p-4 w-full flex flex-col gap-3">
+      <div className="p-4 w-full flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <input
             type="text"

@@ -42,7 +42,7 @@ const Leads = () => {
       const data = await fetchLeads({ search: "", status: [] });
       setGetLeadsData(data);
       if(data){
-        console.log("useEffect called dataaa");
+        console.log("useEffect  dataaa");
       }
     };
     loadLeads();

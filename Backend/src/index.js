@@ -14,10 +14,18 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cors());
 
+// ✅ ping route FIRST
+app.get("/api/ping", (req, res) => {
+  res.status(200).send("pong");
+   console.log(`✅ Server `);
+});
+
 app.use("/api", leadsroute);
 
 connectDB().then(() => {
   app.listen(PORT, () => {
-    console.log(`✅ Server running on port  ssss ${PORT}`);
+    console.log(`✅ Server running on port  sssssss ${PORT}`);
   });
 });
+
+

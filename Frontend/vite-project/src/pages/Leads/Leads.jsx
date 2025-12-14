@@ -11,6 +11,8 @@ import AddLeadsModal from "../../components/AddLeadsModal";
 import ApplyFilters from "../../components/ApplyFilters";
 import { debounce } from "lodash";
 import { useCallback } from "react";
+import { IoSearchOutline } from "react-icons/io5";
+
 
 const Leads = () => {
   // State to manage the Add Lead modal visibility
@@ -37,7 +39,7 @@ const Leads = () => {
   // Fetch leads on component mount
   useEffect(() => {
     const loadLeads = async () => {
-      const data = await fetchLeads();
+      const data = await fetchLeads({ search: "", status: [] });
       setGetLeadsData(data);
       if(data){
         console.log("useEffect called dataaa");
@@ -77,17 +79,17 @@ const Leads = () => {
           />
           <div className="flex flex-col">
             <p className="text-[#020817] font-bold text-[21px]">Leads</p>
-            <span className="text-[#64748b] font-normal text-[14px]">
+            <span className="text-[#64748b] font-normal text-[14px] mt-[4px]">
               Manage And Track Your Leads
             </span>
           </div>
         </div>
         <button
           onClick={() => setIsAddLeadModalOpen(true)}
-          className="flex gap-2 items-center bg-[#0080ff] text-white sm:px-4 px-2 py-2 rounded-md hover:bg-blue-600 transition-colors"
+          className="flex gap-2 items-center bg-[#0080ff] text-white sm:px-4 px-4  h-[40px] rounded-[6px] hover:bg-blue-600 transition-colors"
         >
           <FaPlus />
-          <span className="font-[500] text-[12px] text-[#fff]">Add Lead</span>
+          <span className="font-[500] text-[14px] text-[#fff]">Add Lead</span>
         </button>
 
         {isAddLeadModalOpen && (
@@ -98,15 +100,19 @@ const Leads = () => {
           />
         )}
       </div>
-      <div className="p-4 w-full flex flex-col gap-3">
+      <div className="p-4 w-full flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="w-full sm:w-auto flex-1 relative flex items-center">
+
+          <IoSearchOutline className="flex absolute text-[15px] text-[#64768b] ml-[10px] "/>
           <input
             type="text"
             placeholder="Search leads..."
-            className="w-full sm:w-auto flex-1 px-3 py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
+            className="w-full pr-3 pl-[30px] py-2 border border-[#64768b]  rounded-lg text-sm text-[#64768b] "
             onChange={handleSearchChange}
           />
-
+          
+</div>
           <button
             onClick={() => setFilterOn(!filterOn)}
             className="flex items-center gap-2 px-4 py-2 border border-[#64768b]  rounded-lg text-sm  hover:bg-gray-50"

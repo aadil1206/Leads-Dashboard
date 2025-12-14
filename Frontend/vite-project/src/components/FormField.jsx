@@ -12,7 +12,7 @@ const FormField = ({
   ...props
 }) => (
   <div className={`sm:col-span-1 col-span-2 ${className}`}>
-    <label className="block text-sm text-[#020817]">{label}</label>
+    <label className="block text-sm text-[#020817] pb-2">{label}</label>
     {as === "select" ? (
       <Select
         options={options}

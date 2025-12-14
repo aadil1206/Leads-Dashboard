@@ -123,7 +123,7 @@ const LeadsTable = ({ data: apiData }) => {
               {headerGroup.headers.map((header) => (
                 <th
                   key={header.id}
-                  className="p-2 text-left  text-[#64748b] text-[14px] font-normal whitespace-nowrap"
+                  className="px-3 py-[10px] text-left  text-[#64748b] text-[14px] font-normal whitespace-nowrap"
                 >
                   <div className="inline-flex items-center gap-1">
                     {flexRender(
@@ -143,7 +143,7 @@ const LeadsTable = ({ data: apiData }) => {
               {row.getVisibleCells().map((cell) => (
                 <td
                   key={cell.id}
-                  className="p-2 text-[#020817] font-semibold text-[14px] whitespace-nowrap"
+                  className="px-3 py-[10px] text-[#020817] font-semibold text-[14px] whitespace-nowrap"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </td>

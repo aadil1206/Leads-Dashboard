@@ -19,7 +19,7 @@ const Products = () => {
       />
       <div className="flex flex-col">
         <p className="text-[#020817] font-bold text-[21px]">Products</p>
-        <span className="text-[#64748b] font-normal text-[14px]">
+        <span className="text-[#64748b] font-normal text-[14px] mt-[4px]">
           Manage And Track Your Leads
         </span>
       </div>

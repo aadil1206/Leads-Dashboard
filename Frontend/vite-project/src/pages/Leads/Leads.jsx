@@ -39,6 +39,9 @@ const Leads = () => {
     const loadLeads = async () => {
       const data = await fetchLeads();
       setGetLeadsData(data);
+      if(data){
+        console.log("useEffect called dataaa");
+      }
     };
     loadLeads();
     console.log("useEffect called");
